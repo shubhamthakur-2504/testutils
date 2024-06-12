@@ -1,28 +1,8 @@
-import React, {useState} from 'react'
+
 import PropTypes from 'prop-types'
-
-
 export default function Navbar(props) {
-    const [mystyle, setmystyle] = useState({
-        color:'black',
-        backgroundColor:'white'
-    })
-    const changeMode = ()=>{
-        if( mystyle.color === 'white'){
-            setmystyle({
-                color:'white',
-                backgroundColor:'black'
-            })
-        }
-        else{
-            setmystyle({
-                color:'black',
-                backgroundColor:'white'
-            })
-        }
-    }
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme='dark' color='white'>
+        <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme={`${props.mode}`} color={`${props.mode}`}>
             <div className="container-fluid">
                 <a className="navbar-brand" href="/">{props.title}</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,8 +33,8 @@ export default function Navbar(props) {
                         <button className="btn btn-outline-danger" type="submit">Search</button>
                     </form>
                     <div className="form-check form-switch mx-3">
-                        <input className="form-check-input" type="checkbox" role="switch" onClick={changeMode} id="flexSwitchCheckDefault" />
-                        <label className="form-check-label text-white" htmlFor="flexSwitchCheckDefault">ENABLE DARKMODE</label>
+                        <input className="form-check-input" type="checkbox" role="switch" onClick={props.toggleMode} id="flexSwitchCheckDefault" />
+                        <label className={`form-check-label text-${props.mode==='light'?'dark':'white'}` }htmlFor="flexSwitchCheckDefault">ENABLE DARKMODE</label>
                     </div>
                 </div>
             </div>
