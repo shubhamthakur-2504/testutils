@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import React , {useState , useRef} from 'react'
 import PropTypes from 'prop-types'
 
 
@@ -35,7 +35,9 @@ export default function Textform(prop) {
         setText(newText);
         prop.showAlert("TEXT REVERSED",'success')
     }
+    const selected = useRef(null)
     const Copy = () =>{
+        selected.current?.select(text)
         navigator.clipboard.writeText(text);
         prop.showAlert("TEXT COPIED TO CLIPBOARD",'success')
     }
@@ -54,7 +56,7 @@ export default function Textform(prop) {
             <div className="mb-2">
                 <label htmlFor="textarea1" className="form-label"><h1>{prop.heading} </h1></label>
             </div>
-                <textarea className="form-control" value={text} onChange={handleOnChange} id="textarea1" rows="6"></textarea>
+                <textarea className="form-control" value={text} onChange={handleOnChange} id="textarea1" rows="6" ref={selected}></textarea>
             <button disabled={text.length===0} className="btn btn-outline-primary mx-2 my-2" onClick={lowerCase} >CONVERT TO lowercase</button>
             <button disabled={text.length===0} className="btn btn-outline-primary mx-2 my-2" onClick={upperCase} >Convert to UPPERCASE</button>
             <button disabled={text.length===0} className="btn btn-outline-primary mx-2 my-2" onClick={Clear} >CLEAR TEXT</button>
